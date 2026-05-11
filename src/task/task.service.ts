@@ -13,7 +13,7 @@ export class TaskService {
     {
       id: 2,
       title: 'Task 2',
-      isComplete: true,
+      isCompleted: true,
     },
   ];
 
@@ -34,7 +34,7 @@ export class TaskService {
     const newTask = {
       id: this.tasks.length + 1,
       title,
-      isComplete: false,
+      isCompleted: false,
     };
     this.tasks.push(newTask);
     return this.tasks;
@@ -43,7 +43,14 @@ export class TaskService {
   update(id: number, dto: UpdateTaskDto) {
     const task = this.findById(id);
     const { title, isCompleted } = dto;
-    Object.assign(task, { title, isCompleted });
+    task.title = title;
+    task.isCompleted = isCompleted;
+    return task;
+  }
+
+  patchUpdate(id: number, dto: Partial<UpdateTaskDto>) {
+    const task = this.findById(id);
+    Object.assign(task, dto);
     return task;
   }
 }
