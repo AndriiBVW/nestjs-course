@@ -53,4 +53,10 @@ export class TaskService {
     Object.assign(task, dto);
     return task;
   }
+
+  delete(id: number) {
+    const task = this.findById(id);
+    this.tasks = this.tasks.filter((item) => item.id !== task.id);
+    return task;
+  }
 }
